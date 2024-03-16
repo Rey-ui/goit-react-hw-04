@@ -1,0 +1,18 @@
+@import url("reset.css");
+.cardContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.cardItem {
+  flex-basis: calc((100% - 40px) / 3);
+  max-width: 400px;
+  height: 300px;
+  cursor: pointer;
+  transition: all 250ms;
+}
+.cardItem:hover {
+  transform: scale(1.02);
+}
