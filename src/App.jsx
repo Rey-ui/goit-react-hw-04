@@ -1,27 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import SearchBar from "./components/SearchBar.jsx";
 import ImageGallery from "./components/ImageGallery.jsx";
 import LoadMoreBtn from "./components/LoadMoreBtn.jsx";
-import ErrorMessage from "./components/ErrorMessage.jsx";
-import { Audio } from "react-loader-spinner";
-import Modal from "react-modal";
+import ImageModal from "./components/ImageModal.jsx";
+import Loader from "./components/Loader.jsx";
 import React from "react";
-import css from "./components/App.module.css";
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
-Modal.setAppElement("#root");
+import ErrorMessage from "./components/ErrorMessage.jsx";
 import axios from "axios";
 function App() {
-  const [imageUrl, setImageUrl] = useState([]);
+  const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [loadMore, setLoadMore] = useState(1);
@@ -42,24 +30,39 @@ function App() {
     setSelectedImage(null);
     setIsOpen(false);
   }
-  const handleSubmit = async (evt) => {
-    evt.preventDefault();
-    const form = evt.target;
-    const topicForm = form.elements.search.value.trim();
-    if (form.elements.search.value.trim() === "") {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const photos = await fetchArticles(topic);
+        setPhotos(photos);
+        setError(false);
+      } catch (error) {
+        setError(true);
+        console.error("Error fetching articles:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [topic]);
+
+  const handleSubmit = async (searchValue) => {
+    if (searchValue.trim() === "") {
       toast.error("This didn't work.");
       return;
     }
+    setLoading(true);
     try {
-      setLoading(true);
-      const photos = await fetchArticles(topicForm);
+      const photos = await fetchArticles(searchValue);
       if (photos.length === 0) {
         toast.error("This didn't work.");
         return;
       }
-      setImageUrl(photos);
+      setPhotos(photos);
       setLoadMore(1);
-      setTopic(topicForm);
+      setTopic(searchValue);
       setError(false);
     } catch (error) {
       setError(true);
@@ -67,8 +70,6 @@ function App() {
     } finally {
       setLoading(false);
     }
-
-    form.reset();
   };
   const fetchArticles = async (topic, page = 1) => {
     const response = await axios.get(
@@ -80,7 +81,7 @@ function App() {
     setLoading(true);
     try {
       const newPhotos = await fetchArticles(topic, loadMore);
-      setImageUrl((prevPhotos) => [...prevPhotos, ...newPhotos]);
+      setPhotos((prevPhotos) => [...prevPhotos, ...newPhotos]);
       setLoadMore((prevPage) => prevPage + 1);
       setError(false);
     } catch (error) {
@@ -93,32 +94,19 @@ function App() {
   return (
     <>
       <SearchBar onSubmit={handleSubmit} />
-      {imageUrl.length > 0 && (
-        <ImageGallery imageUrl={imageUrl} openModal={openModal} />
+      {photos.length > 0 && (
+        <ImageGallery photos={photos} openModal={openModal} />
       )}
-      {loading && (
-        <Audio
-          height="80"
-          width="80"
-          radius="9"
-          color="green"
-          ariaLabel="loading"
-          wrapperStyle
-          wrapperClass
-        />
-      )}
+      {loading && <Loader />}
+      <ImageModal
+        modalIsOpen={modalIsOpen}
+        afterOpenModal={afterOpenModal}
+        closeModal={closeModal}
+        selectedImage={selectedImage}
+      />
       {error ? <ErrorMessage /> : null}
       <Toaster />
-      <Modal
-        isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <img className={css.modalImg} src={selectedImage} alt="Selected" />
-      </Modal>
-      {imageUrl.length > 0 && <LoadMoreBtn handleLoadMore={handleLoadMore} />}
+      {photos.length > 0 && <LoadMoreBtn handleLoadMore={handleLoadMore} />}
     </>
   );
 }
