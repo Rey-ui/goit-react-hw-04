@@ -49,10 +49,6 @@ function App() {
   }, [topic]);
 
   const handleSubmit = async (searchValue) => {
-    if (searchValue.trim() === "") {
-      toast.error("This didn't work.");
-      return;
-    }
     setLoading(true);
     try {
       const photos = await fetchArticles(searchValue);

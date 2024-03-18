@@ -3,4 +3,6 @@
   max-height: 90vh;
   border: none;
   padding: 0;
+  outline: none;
+  overflow: hidden;
 }

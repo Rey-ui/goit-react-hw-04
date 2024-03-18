@@ -9,6 +9,10 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    border: "none",
+    background: "none",
+    overflow: "hidden",
+    padding: "none",
   },
 };
 const ImageModal = ({

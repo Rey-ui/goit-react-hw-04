@@ -1,4 +1,5 @@
 import css from "./SearchBar.module.css";
+import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 const SearchBar = ({ onSubmit }) => {
   const [searchValue, setSearchValue] = useState("");
@@ -9,6 +10,10 @@ const SearchBar = ({ onSubmit }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    if (searchValue.trim() === "") {
+      toast.error("Please enter a search query.");
+      return;
+    }
     onSubmit(searchValue.trim());
   };
 
@@ -28,6 +33,7 @@ const SearchBar = ({ onSubmit }) => {
         <button className={css.buttonSearch} type="submit">
           Search
         </button>
+        <Toaster />
       </form>
     </header>
   );
