@@ -1,9 +1,9 @@
 import ImageCard from "./ImageCard.jsx";
 import css from "./ImageGallery.module.css";
-const ImageGallery = ({ photos, openModal }) => {
+const ImageGallery = ({ images, openModal }) => {
   return (
     <ul className={css.cardContainer}>
-      {photos.map((photo) => (
+      {images.map((photo) => (
         <li className={css.cardItem} key={photo.id}>
           <ImageCard photo={photo} openModal={openModal} />
         </li>

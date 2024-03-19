@@ -9,9 +9,9 @@ import React from "react";
 import ErrorMessage from "./components/ErrorMessage.jsx";
 import axios from "axios";
 function App() {
-  const [photos, setPhotos] = useState([]);
+  const [images, setPhotos] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const [loadMore, setLoadMore] = useState(1);
   const [topic, setTopic] = useState("");
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -34,11 +34,11 @@ function App() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const photos = await fetchArticles(topic);
-        setPhotos(photos);
-        setError(false);
+        const images = await fetchArticles(topic);
+        setPhotos(images);
+        setHasError(false);
       } catch (error) {
-        setError(true);
+        setHasError(true);
         console.error("Error fetching articles:", error);
       } finally {
         setLoading(false);
@@ -51,17 +51,17 @@ function App() {
   const handleSubmit = async (searchValue) => {
     setLoading(true);
     try {
-      const photos = await fetchArticles(searchValue);
-      if (photos.length === 0) {
+      const images = await fetchArticles(searchValue);
+      if (images.length === 0) {
         toast.error("This didn't work.");
         return;
       }
-      setPhotos(photos);
+      setPhotos(images);
       setLoadMore(1);
       setTopic(searchValue);
-      setError(false);
+      setHasError(false);
     } catch (error) {
-      setError(true);
+      setHasError(true);
       console.error("Error fetching articles:", error);
     } finally {
       setLoading(false);
@@ -79,9 +79,9 @@ function App() {
       const newPhotos = await fetchArticles(topic, loadMore);
       setPhotos((prevPhotos) => [...prevPhotos, ...newPhotos]);
       setLoadMore((prevPage) => prevPage + 1);
-      setError(false);
+      setHasError(false);
     } catch (error) {
-      setError(true);
+      setHasError(true);
       console.error("Error fetching more articles:", error);
     } finally {
       setLoading(false);
@@ -90,8 +90,8 @@ function App() {
   return (
     <>
       <SearchBar onSubmit={handleSubmit} />
-      {photos.length > 0 && (
-        <ImageGallery photos={photos} openModal={openModal} />
+      {images.length > 0 && (
+        <ImageGallery images={images} openModal={openModal} />
       )}
       {loading && <Loader />}
       <ImageModal
@@ -100,9 +100,9 @@ function App() {
         closeModal={closeModal}
         selectedImage={selectedImage}
       />
-      {error ? <ErrorMessage /> : null}
+      {hasError ? <ErrorMessage /> : null}
       <Toaster />
-      {photos.length > 0 && <LoadMoreBtn handleLoadMore={handleLoadMore} />}
+      {images.length > 0 && <LoadMoreBtn handleLoadMore={handleLoadMore} />}
     </>
   );
 }
