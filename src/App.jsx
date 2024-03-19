@@ -31,19 +31,22 @@ function App() {
     setIsOpen(false);
   }
   useEffect(() => {
+    if (!topic) {
+      return;
+    }
     const fetchData = async () => {
       try {
         setLoading(true);
-        const images = await fetchArticles(topic);
-        if (topic === "") {
-          return;
-        }
-        setPhotos(images);
-        setHasError(false);
-        if (images.length == []) {
+        const images = await fetchArticles(topic, loadMore);
+        if (images.length == 0) {
           toast.error("This didn't work.");
           return;
         }
+        if (topic === "") {
+          return;
+        }
+        setPhotos((prevPhotos) => [...prevPhotos, ...images]);
+        setHasError(false);
       } catch (error) {
         setHasError(true);
         console.error("Error fetching articles:", error);
@@ -53,12 +56,15 @@ function App() {
     };
 
     fetchData();
-  }, [topic]);
+  }, [topic, loadMore]);
 
-  const handleSubmit = async (searchValue) => {
+  const handleSubmit = (searchValue) => {
+    setTopic(searchValue);
+    if (topic === "") {
+      return;
+    }
     setPhotos([]);
     setLoadMore(1);
-    setTopic(searchValue);
     setHasError(false);
   };
   const fetchArticles = async (topic, page = 1) => {
@@ -67,9 +73,7 @@ function App() {
     );
     return response.data.results;
   };
-  const handleLoadMore = async () => {
-    const newPhotos = await fetchArticles(topic, loadMore);
-    setPhotos((prevPhotos) => [...prevPhotos, ...newPhotos]);
+  const handleLoadMore = () => {
     setLoadMore((prevPage) => prevPage + 1);
   };
   return (
