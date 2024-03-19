@@ -56,18 +56,10 @@ function App() {
   }, [topic]);
 
   const handleSubmit = async (searchValue) => {
-    setLoading(true);
-    try {
-      setPhotos(images);
-      setLoadMore(1);
-      setTopic(searchValue);
-      setHasError(false);
-    } catch (error) {
-      setHasError(true);
-      console.error("Error fetching articles:", error);
-    } finally {
-      setLoading(false);
-    }
+    setPhotos([]);
+    setLoadMore(1);
+    setTopic(searchValue);
+    setHasError(false);
   };
   const fetchArticles = async (topic, page = 1) => {
     const response = await axios.get(
@@ -76,18 +68,9 @@ function App() {
     return response.data.results;
   };
   const handleLoadMore = async () => {
-    setLoading(true);
-    try {
-      const newPhotos = await fetchArticles(topic, loadMore);
-      setPhotos((prevPhotos) => [...prevPhotos, ...newPhotos]);
-      setLoadMore((prevPage) => prevPage + 1);
-      setHasError(false);
-    } catch (error) {
-      setHasError(true);
-      console.error("Error fetching more articles:", error);
-    } finally {
-      setLoading(false);
-    }
+    const newPhotos = await fetchArticles(topic, loadMore);
+    setPhotos((prevPhotos) => [...prevPhotos, ...newPhotos]);
+    setLoadMore((prevPage) => prevPage + 1);
   };
   return (
     <>
