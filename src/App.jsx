@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-//import toast, { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import SearchBar from "./components/SearchBar.jsx";
 import ImageGallery from "./components/ImageGallery.jsx";
 import LoadMoreBtn from "./components/LoadMoreBtn.jsx";
@@ -40,6 +40,10 @@ function App() {
         }
         setPhotos(images);
         setHasError(false);
+        if (images.length == []) {
+          toast.error("This didn't work.");
+          return;
+        }
       } catch (error) {
         setHasError(true);
         console.error("Error fetching articles:", error);
@@ -99,7 +103,7 @@ function App() {
         selectedImage={selectedImage}
       />
       {hasError ? <ErrorMessage /> : null}
-      {/* <Toaster /> */}
+      {<Toaster />}
       {images.length > 0 && <LoadMoreBtn handleLoadMore={handleLoadMore} />}
     </>
   );

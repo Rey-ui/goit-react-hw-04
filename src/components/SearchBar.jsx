@@ -14,10 +14,6 @@ const SearchBar = ({ onSubmit }) => {
       toast.error("Please enter a search query.");
       return;
     }
-    if (searchValue.trim().length === 0) {
-      toast.error("This didn't work.");
-      return;
-    }
     onSubmit(searchValue.trim());
   };
 
