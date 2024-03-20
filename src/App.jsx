@@ -16,6 +16,7 @@ function App() {
   const [topic, setTopic] = useState("");
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [showBtn, setShowBtn] = useState(false);
   function openModal(imageUrl) {
     setSelectedImage(imageUrl);
     setIsOpen(true);
@@ -37,16 +38,14 @@ function App() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const images = await fetchArticles(topic, loadMore);
-        if (images.length == 0) {
+        const { results, total_pages } = await fetchArticles(topic, loadMore);
+        if (results.length == 0) {
           toast.error("This didn't work.");
           return;
         }
-        if (topic === "") {
-          return;
-        }
-        setPhotos((prevPhotos) => [...prevPhotos, ...images]);
+        setPhotos((prevPhotos) => [...prevPhotos, ...results]);
         setHasError(false);
+        setShowBtn(total_pages !== loadMore);
       } catch (error) {
         setHasError(true);
         console.error("Error fetching articles:", error);
@@ -60,9 +59,6 @@ function App() {
 
   const handleSubmit = (searchValue) => {
     setTopic(searchValue);
-    if (topic === "") {
-      return;
-    }
     setPhotos([]);
     setLoadMore(1);
     setHasError(false);
@@ -71,7 +67,7 @@ function App() {
     const response = await axios.get(
       `https://api.unsplash.com/search/photos?client_id=nj4XtoHtERFLRDKvM__gsRKs3HRprXuq4l3RQxg_Pa4&page=${page}&query=${topic}`
     );
-    return response.data.results;
+    return response.data;
   };
   const handleLoadMore = () => {
     setLoadMore((prevPage) => prevPage + 1);
@@ -91,7 +87,9 @@ function App() {
       />
       {hasError ? <ErrorMessage /> : null}
       {<Toaster />}
-      {images.length > 0 && <LoadMoreBtn handleLoadMore={handleLoadMore} />}
+      {showBtn && images.length > 0 && (
+        <LoadMoreBtn handleLoadMore={handleLoadMore} />
+      )}
     </>
   );
 }
