@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import Loader from "./Loader.jsx";
 import ErrorMessage from "./ErrorMessage.jsx";
 import css from "./MovieReviews.module.css";
-const MovieReviews = ({ fetchArticlesReviews }) => {
+import { fetchArticlesReviews } from "../Api.js";
+const MovieReviews = () => {
   const { moviesId } = useParams();
   const [movieData, setMovieData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);

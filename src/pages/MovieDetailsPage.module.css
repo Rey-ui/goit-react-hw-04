@@ -31,10 +31,28 @@
   justify-content: flex-start;
   padding: 20px;
 }
+@media (max-width: 767px) {
+  .MovieDetailsContentContainer {
+    border-top: 1px solid #26f0bd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 35px;
+    justify-content: center;
+    padding: 20px;
+  }
+}
 .MovieDetailsImg img {
   border-radius: 10px;
   max-width: 500px;
   max-height: 600px;
+}
+@media (max-width: 767px) {
+  .MovieDetailsImg img {
+    border-radius: 10px;
+    max-width: 350px;
+    max-height: 450px;
+  }
 }
 .MovieDetailsContentText {
   display: flex;
@@ -82,6 +100,15 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
+}
+@media (max-width: 767px) {
+  .MovieDetailsAdditionalContainer {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
 }
 .MovieDetailsAdditional {
   font-size: 24px;

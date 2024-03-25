@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import Loader from "./Loader.jsx";
 import css from "./MovieCast.module.css";
 import ErrorMessage from "./ErrorMessage.jsx";
-const MovieCast = ({ fetchArticlesCredits }) => {
+import { fetchArticlesCredits } from "../Api.js";
+const MovieCast = () => {
   const { moviesId } = useParams();
   const [movieData, setMovieData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);

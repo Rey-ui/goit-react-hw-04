@@ -3,7 +3,8 @@ import Loader from "../components/Loader.jsx";
 import MovieList from "../components/MovieList.jsx";
 import ErrorMessage from "../components/ErrorMessage";
 import css from "./HomePage.module.css";
-const HomePage = ({ fetchArticles }) => {
+import { fetchArticles } from "../Api.js";
+const HomePage = () => {
   const [movies, setMovies] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -29,7 +30,9 @@ const HomePage = ({ fetchArticles }) => {
       {isError && <ErrorMessage />}
       <h1 className={css.HomePageTitle}>Trending today</h1>
       {isLoading && <Loader />}
-      <MovieList movies={movies} />
+      {!isLoading && movies && movies.length > 0 && (
+        <MovieList movies={movies} />
+      )}
     </div>
   );
 };

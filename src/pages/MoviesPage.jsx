@@ -5,7 +5,8 @@ import Loader from "../components/Loader.jsx";
 import MovieList from "../components/MovieList.jsx";
 import { useSearchParams } from "react-router-dom";
 import css from "./MoviesPage.module.css";
-const MoviesPage = ({ fetchArticlesByQuery }) => {
+import { fetchArticlesByQuery } from "../Api.js";
+const MoviesPage = () => {
   const [movies, setMovies] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
