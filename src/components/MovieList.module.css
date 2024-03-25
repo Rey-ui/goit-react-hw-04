@@ -1,0 +1,32 @@
+.MovieListList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #26f0bd;
+}
+.MovieListItem {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  max-width: 900px;
+  background-color: transparent;
+  background-color: rgb(159, 202, 191);
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+.MovieListItem:hover {
+  background-color: rgb(127, 179, 166);
+}
+.MovieListItem:active {
+  transform: scale(1.1);
+}
+.MovieListLink {
+  display: block;
+  padding: 15px 35px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 28px;
+  letter-spacing: -3%;
+  color: rgb(27, 27, 27);
+}

@@ -1,0 +1,11 @@
+.HomePageContainer {
+  margin: 0 auto;
+  padding: 20px;
+}
+.HomePageTitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 50px;
+  line-height: 28px;
+  letter-spacing: -3%;
+}

@@ -1,0 +1,41 @@
+.MoviesPageContainer {
+  margin: 0 auto;
+  padding: 20px;
+}
+.MoviesPageTitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 50px;
+  line-height: 28px;
+  letter-spacing: -3%;
+}
+.MoviesPageForm {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+}
+.MoviesPageInput {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #c28e8e;
+  border-radius: 4px;
+  transition: all 250ms;
+}
+.MoviesPageInput:hover,
+.MoviesPageInput:focus {
+  border: 1px solid #9c6262;
+  box-shadow: 0px 0px 5px 1px #9c6262;
+}
+.MoviesPageButton {
+  padding: 10px 15px;
+  margin: 10px 0;
+  border: 1px solid #c28e8e;
+  background-color: #ca9090;
+  border-radius: 4px;
+  transition: all 250ms;
+}
+.MoviesPageButton:hover {
+  border: 1px solid #9c6262;
+  box-shadow: 0px 0px 20px 1px #9c6262;
+}

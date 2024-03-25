@@ -1,0 +1,119 @@
+.MovieDetailsContainer {
+  padding: 15px;
+  margin: 0 auto;
+  max-width: 1440px;
+  overflow: hidden;
+}
+.MovieDetailsContent {
+  margin: 0 auto;
+}
+.MovieDetailsBack {
+  display: inline-block;
+  font-size: 18px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 8px 12px;
+  background-color: #d85f5f;
+  color: aliceblue;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 250ms;
+}
+.MovieDetailsBack:hover {
+  transform: scale(1.1);
+  background-color: #b84f4f;
+}
+.MovieDetailsContentContainer {
+  border-top: 1px solid #26f0bd;
+  display: flex;
+  align-items: flex-start;
+  gap: 65px;
+  justify-content: flex-start;
+  padding: 20px;
+}
+.MovieDetailsImg img {
+  border-radius: 10px;
+  max-width: 500px;
+  max-height: 600px;
+}
+.MovieDetailsContentText {
+  display: flex;
+  max-width: 350px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.MovieDetailsTitleh1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  margin-top: 20px;
+  line-height: 28px;
+  letter-spacing: -3%;
+}
+.MovieDetailsTitleh2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  margin-top: 20px;
+  line-height: 28px;
+  letter-spacing: -3%;
+}
+.MovieDetailsTitleh3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  margin-top: 20px;
+  line-height: 28px;
+  letter-spacing: -3%;
+}
+.MovieDetailsText {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+}
+.MovieDetailsText span {
+  margin-right: 5px;
+}
+.MovieDetailsAdditionalContainer {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+.MovieDetailsAdditional {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  margin-top: 20px;
+  line-height: 28px;
+  letter-spacing: -3%;
+}
+.MovieDetailsContainerLink {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+a {
+  color: inherit;
+}
+.MovieDetailsLink {
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+  padding: 8px 12px;
+  background-color: #d85f5f;
+  color: aliceblue;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 250ms;
+}
+.MovieDetailsLink:hover {
+  transform: scale(1.1);
+  background-color: #b84f4f;
+}
